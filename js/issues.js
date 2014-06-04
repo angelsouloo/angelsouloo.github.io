@@ -30,7 +30,7 @@
         </div>\
         <article class="markdown">\
           <%=#marked(body)%>\
-          <p><a href="<%=html_url%>" target="_blank" class="btn-view"><%=comments%> comments / view on github</a></p>\
+          <div class="ds-thread" data-thread-key="<%=id%>" data-title="<%=title%>" data-url="<%=html_url%>"></div>\
         </article>',
       render = template.compile(source),
       renderContent = template.compile(sourceContent)

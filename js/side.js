@@ -5,7 +5,7 @@
       spring = win.spring,
       source = '\
         <h1 class="logo"><%=$.spring.config.title%></h1>\
-        <div class="desc markdown"><%=#marked($.spring.config.desc)%></div>\
+        <div id="hitokoto" class="desc markdown"><%=#marked($.spring.config.desc)%></div>\
         <div class="menu">\
           <menu>\
               <li><a href="https://github.com/<%=$.spring.config.owner%>/<%=$.spring.config.repo%>/issues?state=open" data-href="#" class="taplink">Home</a></li>\
@@ -40,12 +40,12 @@
       .find('.container').trigger('spa:scroll', {direction: 'y'})
       .trigger('side:render')
   })
-
   $doc.on('side:render', function(event, options) {
     var data = (options && options.data) || {},
-        body = render(data)
+        body = render(data);
 
-    $('.side .container').html(body)
+    $('.side .container').html(body);
+    options && options.callback && options.callback();
   })
 
 })(Zepto, window, document)

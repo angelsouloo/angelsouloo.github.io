@@ -18,15 +18,15 @@
   // default config
   spring.config = {
     // my blog title
-    title: 'Spring',
+    title: '记忆碎片',
     // my blog description
-    desc: 'A blog engine written by GitHub Issues [Fork me on GitHub](https://github.com/zhaoda/spring)',
+    desc: 'Just A Blog',
     // my github username
-    owner: 'zhaoda',
+    owner: 'angelsouloo',
     // creator's username
     creator: '',
     // the repository name on github for writting issues
-    repo: 'spring',
+    repo: 'angelsouloo.github.io',
     // custom page
     pages: [],
     // github's api
@@ -60,6 +60,21 @@
     spring.fn.request('/repos/' + spring.config.owner + '/' + spring.config.repo + '/labels', {}, function(data) {
       spring.data.labels = data.data || []
       callback()
+    })
+  }
+  spring.fn.hitokoto = function(d) {
+    $("#hitokoto").html('<a href="http://hitokoto.us/view/'+d.id+'.html" target="_blank" title="分类：'+d.catname+'&#10;出自：'+d.source+'&#10;喜欢：'+d.like+'&#10;投稿：'+d.author+' @ '+d.date+'">『'+d.hitokoto+'』</a>');
+  }
+  spring.fn.getHitokoto = function() {
+    var url = 'http://api.hitokoto.us/rand'+ '?callback=?';
+    var parameters = {
+      cat: 'a',
+      charset: 'utf-8',
+      encode: 'jsc',
+      fun: 'spring.fn.hitokoto'
+    };
+    $.getJSON(url, parameters, function(data) {
+      // console.log(data)
     })
   }
 
@@ -141,11 +156,14 @@
   $(function() {
     $doc.trigger('spa:boot', {
       callback: function() {
-        $doc.trigger('side:create')
-
+        $doc.trigger('side:create');
         spring.fn.getLabels(function() {
-          $doc.trigger('menu:render')
-          $doc.trigger('side:render')
+          $doc.trigger('menu:render');
+          $doc.trigger('side:render', {
+            callback: function() {
+              spring.fn.getHitokoto();
+            }
+          });
         })
       }
     })    
