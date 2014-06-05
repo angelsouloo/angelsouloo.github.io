@@ -62,20 +62,34 @@
       callback()
     })
   }
+  
   spring.fn.hitokoto = function(d) {
     $("#hitokoto").html('<a href="http://hitokoto.us/view/'+d.id+'.html" target="_blank" title="分类：'+d.catname+'&#10;出自：'+d.source+'&#10;喜欢：'+d.like+'&#10;投稿：'+d.author+' @ '+d.date+'">『'+d.hitokoto+'』</a>');
   }
+
   spring.fn.getHitokoto = function() {
     var url = 'http://api.hitokoto.us/rand'+ '?callback=?';
     var parameters = {
-      cat: 'a',
-      charset: 'utf-8',
       encode: 'jsc',
       fun: 'spring.fn.hitokoto'
     };
     $.getJSON(url, parameters, function(data) {
       // console.log(data)
     })
+  }
+
+  spring.fn.getDuoshuo = function(d) {
+    if($('#duoshuo').has("div").length>0){
+      $('#duoshuo').empty();
+      return;
+    }
+    var el = document.createElement('div');
+    el.setAttribute('class', 'ds-thread');
+    el.setAttribute('data-title', d.title);
+    el.setAttribute('data-thread-key', d.id);
+    el.setAttribute('data-url', d.html_url);
+    DUOSHUO.EmbedThread(el);
+    $('#duoshuo').append(el);
   }
 
   spring.fn.getHash = function(url) {

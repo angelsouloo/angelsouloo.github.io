@@ -30,8 +30,8 @@
         </div>\
         <article class="markdown">\
           <%=#marked(body)%>\
-          <div class="ds-thread" data-thread-key="<%=id%>" data-title="<%=title%>" data-url="<%=html_url%>"></div>\
-        </article>',
+        </article>\
+        <div id="duoshuo"></div>',
       render = template.compile(source),
       renderContent = template.compile(sourceContent)
 
@@ -88,6 +88,7 @@
         issue = options.issue
 
     $target.html(renderContent(issue))
+    spring.fn.getDuoshuo(issue)
   })
 
   $doc.trigger('spa:route', pageLabels)
