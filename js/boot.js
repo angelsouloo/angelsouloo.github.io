@@ -79,8 +79,8 @@
   }
 
   spring.fn.getDuoshuo = function(d) {
-    if($('#duoshuo').has("div").length>0){
-      $('#duoshuo').empty();
+    if($('#duoshuo'+d.id).has("div").length>0){
+      $('#duoshuo'+d.id).empty();
       return;
     }
     var el = document.createElement('div');
@@ -89,7 +89,7 @@
     el.setAttribute('data-thread-key', d.id);
     el.setAttribute('data-url', d.html_url);
     DUOSHUO.EmbedThread(el);
-    $('#duoshuo').append(el);
+    $('#duoshuo'+d.id).append(el);
   }
 
   spring.fn.getHash = function(url) {

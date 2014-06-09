@@ -31,7 +31,7 @@
         <article class="markdown">\
           <%=#marked(body)%>\
         </article>\
-        <div id="duoshuo"></div>',
+        <div id="duoshuo<%=id%>"></div>',
       render = template.compile(source),
       renderContent = template.compile(sourceContent)
 
@@ -86,7 +86,6 @@
   $doc.on('issues:render', function(event, options) {
     var $target = $(event.target),
         issue = options.issue
-
     $target.html(renderContent(issue))
     spring.fn.getDuoshuo(issue)
   })
